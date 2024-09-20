@@ -1,5 +1,5 @@
 # page_navigation.py
-# coding=windows-1251
+# coding=utf-8
 
 import logging
 from selenium.webdriver import Keys
@@ -13,10 +13,10 @@ WAIT_TIME = 5
 
 def go_to_next_page(driver):
     next_button = WebDriverWait(driver, WAIT_TIME).until(
-        ec.element_to_be_clickable((By.LINK_TEXT, 'Следующая страница'))
+        ec.element_to_be_clickable((By.LINK_TEXT, 'РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°'))
     )
     next_button.click()
-    logging.info("Клик на кнопку 'Следующая страница' выполнен!")
+    logging.info("РљР»РёРє РЅР° РєРЅРѕРїРєСѓ 'РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°' РІС‹РїРѕР»РЅРµРЅ!")
     time.sleep(WAIT_TIME)
 
 

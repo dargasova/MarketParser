@@ -1,5 +1,5 @@
 # scrape_xpaths.py
-# coding=windows-1251
+# coding=utf-8
 
 import logging
 from selenium import webdriver
@@ -44,7 +44,7 @@ def scrape_xpaths():
 
                     file.write(f"{xpath},{page_number}\n")
 
-                    logging.info(f"Найден элемент с индексом {i} на странице {page_number}")
+                    logging.info(f"РќР°Р№РґРµРЅ СЌР»РµРјРµРЅС‚ СЃ РёРЅРґРµРєСЃРѕРј {i} РЅР° СЃС‚СЂР°РЅРёС†Рµ {page_number}")
 
                     i += 1
                     retries = 0
@@ -53,7 +53,7 @@ def scrape_xpaths():
                     scroll_page_down(driver, i)
 
                 except NoSuchElementException:
-                    logging.warning(f"Элемент с индексом {i} не найден на странице {page_number}")
+                    logging.warning(f"Р­Р»РµРјРµРЅС‚ СЃ РёРЅРґРµРєСЃРѕРј {i} РЅРµ РЅР°Р№РґРµРЅ РЅР° СЃС‚СЂР°РЅРёС†Рµ {page_number}")
 
                     if retries < 2:
                         driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.END)
@@ -63,7 +63,7 @@ def scrape_xpaths():
                     else:
                         try:
                             logging.info(
-                                f"Все элементы на странице {page_number} обработаны. Переходим на следующую страницу!")
+                                f"Р’СЃРµ СЌР»РµРјРµРЅС‚С‹ РЅР° СЃС‚СЂР°РЅРёС†Рµ {page_number} РѕР±СЂР°Р±РѕС‚Р°РЅС‹. РџРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ!")
 
                             try:
                                 go_to_next_page(driver)
@@ -73,20 +73,20 @@ def scrape_xpaths():
                                 page_number += 1
 
                             except NoSuchElementException:
-                                logging.warning("Кнопка 'Следующая страница' не найдена или достигнут конец страниц")
+                                logging.warning("РљРЅРѕРїРєР° 'РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°' РЅРµ РЅР°Р№РґРµРЅР° РёР»Рё РґРѕСЃС‚РёРіРЅСѓС‚ РєРѕРЅРµС† СЃС‚СЂР°РЅРёС†")
                                 break
 
                         except Exception as e:
-                            logging.error(f"Ошибка при попытке перейти на следующую страницу: {e}")
+                            logging.error(f"РћС€РёР±РєР° РїСЂРё РїРѕРїС‹С‚РєРµ РїРµСЂРµР№С‚Рё РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ: {e}")
                             break
 
         if total_items >= MAX_ITEMS:
-            logging.info(f"Парсинг завершен успешно. Найдено {MAX_ITEMS} элементов!")
+            logging.info(f"РџР°СЂСЃРёРЅРі Р·Р°РІРµСЂС€РµРЅ СѓСЃРїРµС€РЅРѕ. РќР°Р№РґРµРЅРѕ {MAX_ITEMS} СЌР»РµРјРµРЅС‚РѕРІ!")
         else:
-            logging.info("Парсинг завершен. Достигнут конец страниц или произошла ошибка")
+            logging.info("РџР°СЂСЃРёРЅРі Р·Р°РІРµСЂС€РµРЅ. Р”РѕСЃС‚РёРіРЅСѓС‚ РєРѕРЅРµС† СЃС‚СЂР°РЅРёС† РёР»Рё РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°")
 
     except Exception as e:
-        logging.error(f"Произошла ошибка: {e}")
+        logging.error(f"РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°: {e}")
 
     finally:
         driver.quit()

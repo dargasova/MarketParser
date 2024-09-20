@@ -1,5 +1,5 @@
 # common_web_actions.py
-# coding=windows-1251
+# coding=utf-8
 
 import logging
 from selenium.webdriver.common.by import By
@@ -17,13 +17,13 @@ def close_cookies_banner(driver):
             ec.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div/div/button'))
         )
         cookie_button.click()
-        logging.info("Баннер с cookies закрыт!")
+        logging.info("Р‘Р°РЅРЅРµСЂ СЃ cookies Р·Р°РєСЂС‹С‚!")
     except TimeoutException:
-        logging.error("Не удалось найти кнопку 'Окей' для закрытия баннера с cookies")
+        logging.error("РќРµ СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё РєРЅРѕРїРєСѓ 'РћРєРµР№' РґР»СЏ Р·Р°РєСЂС‹С‚РёСЏ Р±Р°РЅРЅРµСЂР° СЃ cookies")
     except NoSuchElementException:
-        logging.error("Кнопка 'Окей' для закрытия баннера с cookies не найдена")
+        logging.error("РљРЅРѕРїРєР° 'РћРєРµР№' РґР»СЏ Р·Р°РєСЂС‹С‚РёСЏ Р±Р°РЅРЅРµСЂР° СЃ cookies РЅРµ РЅР°Р№РґРµРЅР°")
     except Exception as e:
-        logging.error(f"Ошибка при закрытии баннера с cookies: {e}")
+        logging.error(f"РћС€РёР±РєР° РїСЂРё Р·Р°РєСЂС‹С‚РёРё Р±Р°РЅРЅРµСЂР° СЃ cookies: {e}")
 
 
 def find_element_with_retries(driver, xpath, retries=2):
@@ -32,8 +32,8 @@ def find_element_with_retries(driver, xpath, retries=2):
             return driver.find_element(By.XPATH, xpath)
         except NoSuchElementException:
             if attempt < retries:
-                logging.warning(f"Попытка {attempt + 1}: Элемент с XPATH {xpath} не найден, повторная попытка...")
+                logging.warning(f"РџРѕРїС‹С‚РєР° {attempt + 1}: Р­Р»РµРјРµРЅС‚ СЃ XPATH {xpath} РЅРµ РЅР°Р№РґРµРЅ, РїРѕРІС‚РѕСЂРЅР°СЏ РїРѕРїС‹С‚РєР°...")
                 time.sleep(WAIT_TIME)
             else:
-                logging.error(f"Элемент с XPATH {xpath} не найден после {retries + 1} попыток.")
+                logging.error(f"Р­Р»РµРјРµРЅС‚ СЃ XPATH {xpath} РЅРµ РЅР°Р№РґРµРЅ РїРѕСЃР»Рµ {retries + 1} РїРѕРїС‹С‚РѕРє.")
                 return None

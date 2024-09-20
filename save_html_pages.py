@@ -1,5 +1,5 @@
 # save_html_pages.py
-# coding=windows-1251
+# coding=utf-8
 
 import os
 import shutil
@@ -27,7 +27,7 @@ def create_or_clear_dir(directory):
     if os.path.exists(directory):
         shutil.rmtree(directory)
     os.makedirs(directory)
-    logging.info(f"Директория {directory} создана или очищена!")
+    logging.info(f"Р”РёСЂРµРєС‚РѕСЂРёСЏ {directory} СЃРѕР·РґР°РЅР° РёР»Рё РѕС‡РёС‰РµРЅР°!")
 
 
 def save_element_html(driver, page_folder_name, element_index):
@@ -36,7 +36,7 @@ def save_element_html(driver, page_folder_name, element_index):
     file_name = f"page_{element_index}.html"
     with open(os.path.join(page_folder_name, file_name), 'w', encoding='utf-8') as file:
         file.write(page_source)
-    logging.info(f"HTML-страница элемента сохранена в {page_folder_name}/{file_name}")
+    logging.info(f"HTML-СЃС‚СЂР°РЅРёС†Р° СЌР»РµРјРµРЅС‚Р° СЃРѕС…СЂР°РЅРµРЅР° РІ {page_folder_name}/{file_name}")
 
 
 def process_xpaths():
@@ -60,14 +60,14 @@ def process_xpaths():
 
                 while page_number != current_page_number:
                     try:
-                        logging.info(f"Переход на следующую страницу {current_page_number + 1}")
+                        logging.info(f"РџРµСЂРµС…РѕРґ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ {current_page_number + 1}")
 
                         go_to_next_page(driver)
 
                         current_page_number += 1
 
                     except (NoSuchElementException, TimeoutException) as e:
-                        logging.error(f"Ошибка при попытке перейти на следующую страницу: {e}")
+                        logging.error(f"РћС€РёР±РєР° РїСЂРё РїРѕРїС‹С‚РєРµ РїРµСЂРµР№С‚Рё РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂР°РЅРёС†Сѓ: {e}")
                         driver.quit()
                         return
 
@@ -78,18 +78,18 @@ def process_xpaths():
                 elem = find_element_with_retries(driver, xpath)
                 if elem:
                     elem.send_keys(Keys.RETURN)
-                    logging.info(f"Открытие элемента по XPATH {xpath} на странице {page_number} выполнено!")
+                    logging.info(f"РћС‚РєСЂС‹С‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ XPATH {xpath} РЅР° СЃС‚СЂР°РЅРёС†Рµ {page_number} РІС‹РїРѕР»РЅРµРЅРѕ!")
                     time.sleep(1)
                     save_element_html(driver, page_folder_name, index + 1)
                     driver.back()
                     time.sleep(1)
 
     except FileNotFoundError:
-        logging.error("Файл xpaths.txt не найден")
+        logging.error("Р¤Р°Р№Р» xpaths.txt РЅРµ РЅР°Р№РґРµРЅ")
 
     finally:
         driver.quit()
-        logging.info("Обработка завершена!")
+        logging.info("РћР±СЂР°Р±РѕС‚РєР° Р·Р°РІРµСЂС€РµРЅР°!")
 
 
 if __name__ == "__main__":
