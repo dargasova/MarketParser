@@ -7,7 +7,7 @@ import logging
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.keys import Keys
-from common_web_actions import close_cookies_banner, find_element_with_retries
+from common_web_actions import close_cookies_banner, find_element_with_retries, wait_for_page_load
 from page_navigation import scroll_page_down, go_to_next_page
 import time
 
@@ -79,10 +79,11 @@ def process_xpaths():
                 if elem:
                     elem.send_keys(Keys.RETURN)
                     logging.info(f"Открытие элемента по XPATH {xpath} на странице {page_number} выполнено!")
-                    time.sleep(1)
+                    wait_for_page_load(driver)
+                    time.sleep(5)
                     save_element_html(driver, page_folder_name, index + 1)
                     driver.back()
-                    time.sleep(1)
+                    time.sleep(2)
 
     except FileNotFoundError:
         logging.error("Файл xpaths.txt не найден")

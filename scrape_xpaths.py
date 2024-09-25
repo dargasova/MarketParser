@@ -18,7 +18,7 @@ logging.basicConfig(
 )
 
 URL = "https://www.wildberries.ru/catalog/elektronika/tv-audio-foto-video-tehnika/televizory/televizory"
-MAX_ITEMS = 110
+MAX_ITEMS = 1000
 WAIT_TIME = 5
 
 

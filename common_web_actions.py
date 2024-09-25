@@ -37,3 +37,17 @@ def find_element_with_retries(driver, xpath, retries=2):
             else:
                 logging.error(f"Элемент с XPATH {xpath} не найден после {retries + 1} попыток.")
                 return None
+
+
+def wait_for_page_load(driver):
+    try:
+        # Ожидание полной загрузки всех изображений на странице
+        WebDriverWait(driver, 20).until(
+            ec.presence_of_all_elements_located((By.TAG_NAME, "img"))
+        )
+        logging.info("Все изображения на странице загружены!")
+
+        logging.info("Все карточки товаров загружены!")
+
+    except TimeoutException:
+        logging.error("Ошибка: время ожидания загрузки страницы истекло")
