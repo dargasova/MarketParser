@@ -2,6 +2,8 @@
 # coding=utf-8
 
 import logging
+
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -39,15 +41,29 @@ def find_element_with_retries(driver, xpath, retries=2):
                 return None
 
 
+def scroll_page_down(driver, times=1):
+    body = driver.find_element(By.TAG_NAME, 'body')
+    for _ in range(times):
+        body.send_keys(Keys.PAGE_DOWN)
+        time.sleep(1)
+
+
+def scroll_page_up(driver):
+    body = driver.find_element(By.TAG_NAME, 'body')
+    body.send_keys(Keys.HOME)
+    time.sleep(1)
+
+
 def wait_for_page_load(driver):
     try:
-        # Ожидание полной загрузки всех изображений на странице
+        scroll_page_down(driver, 2)
+
         WebDriverWait(driver, 20).until(
             ec.presence_of_all_elements_located((By.TAG_NAME, "img"))
         )
         logging.info("Все изображения на странице загружены!")
 
-        logging.info("Все карточки товаров загружены!")
+        scroll_page_up(driver)
 
     except TimeoutException:
         logging.error("Ошибка: время ожидания загрузки страницы истекло")
